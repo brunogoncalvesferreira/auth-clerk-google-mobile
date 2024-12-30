@@ -3,6 +3,7 @@ import { router, Slot } from 'expo-router'
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo'
 import { useEffect } from 'react'
 import { tokenCache } from '@/store/cache'
+import { ActivityIndicator } from 'react-native'
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY as string
 
@@ -24,9 +25,11 @@ function InitialLayout() {
       router.replace('/(public)')
     }
 
-  }, [isSignedIn, isLoaded])
+  }, [isSignedIn])
   
-  return <Slot/>
+  return isLoaded ? (
+    <Slot/>
+  ) : <ActivityIndicator/>
 }
 
 export default function Layout() {
